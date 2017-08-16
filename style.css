@@ -1,0 +1,52 @@
+td {
+    vertical-align: middle !important;
+}
+
+.control-label {
+    padding-top: 3px !important;
+    font-weight: normal;
+}
+
+.end-text {
+    /*margin-top: 3px !important;*/
+    margin-left: 5px;
+}
+
+.button-text {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.category_list {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.running-state {
+    font-size: 15px;
+    color: red;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.running-select {
+    width: 100px;
+    display: inline-block;
+}
+
+.running-button {
+    display: inline-block;
+}
+
+.list-title {
+    font-size: 16px;
+    line-height: 36px;
+}
+
+.list-p {
+    font-size: 14px;
+    line-height: 26px;
+}
+.myhiden{
+	display:none;
+}
