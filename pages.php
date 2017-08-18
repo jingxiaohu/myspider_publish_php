@@ -106,6 +106,24 @@ function cr_function_submenu3() {
     </p>
     </div>
     </div>
+	    <div class="center-block">
+        <?php
+        if($show_page > 2){
+            echo "<a href=\"#\" onclick=\"history_show_page(1)\">[首页]</a>&nbsp&nbsp&nbsp&nbsp";
+        }
+        if($show_page > 1){
+            echo "<a href=\"#\" onclick=\"history_show_page(" . ($show_page - 1) . ")\">[上一页]</a>&nbsp&nbsp&nbsp&nbsp";
+        }
+
+        if($show_page < $page_nums - 1) {
+            echo "<a href=\"#\" onclick=\"history_show_page(" . ($show_page + 1) . ")\">[下一页]</a>&nbsp&nbsp&nbsp&nbsp";
+        }
+        if($show_page < $page_nums) {
+            echo "<a href=\"#\" onclick=\"history_show_page(" . $page_nums . ")\">[尾页]</a>";
+        }
+        ?>
+    </div>
+	
     <div>
 	<table id="history_table" class="table table-bordered table-striped table-hover table-condensed">
         <thead>
@@ -129,11 +147,12 @@ function cr_function_submenu3() {
             //on wp_cr_table.postid = wp_posts.ID LIMIT ' . ($show_page - 1) * $show_num . ',' . $show_num;
 			
 			
-		$sql_str = 'select * from wp_post_jxh   LIMIT ' . ($show_page - 1) * $show_num . ',' . $show_num;
+		$sql_str = 'select * from wp_post_jxh order by id asc   LIMIT ' . ($show_page - 1) * $show_num . ',' . $show_num;
             
         $results = $wpdb->get_results( $sql_str );
-        $i = count( $results ) - 1;
-        while ( $i >= 0 ) {
+        $x = count( $results );
+		for ($i=0; $i<$x; $i++) {
+        //while ( $i >= 0 ) {
             echo '<tr>';
             echo '<td class="history_id">' . $results[$i]->id . '</td>';
 			echo '<td>' . $results[$i]->post_id . '</td>';
@@ -155,28 +174,12 @@ function cr_function_submenu3() {
 			echo '<td>' . $results[$i]->url_status . '</td>';
 	        echo '<td style="text-align: center;"><input type="checkbox" class="check_box"></td>';
             echo '</tr>';
-            $i--;
+            //$i--;
         }
         ?>
         </tbody>
     </table>
-    <div class="center-block">
-        <?php
-        if($show_page > 2){
-            echo "<a href=\"#\" onclick=\"history_show_page(1)\">[首页]</a>&nbsp&nbsp&nbsp&nbsp";
-        }
-        if($show_page > 1){
-            echo "<a href=\"#\" onclick=\"history_show_page(" . ($show_page - 1) . ")\">[上一页]</a>&nbsp&nbsp&nbsp&nbsp";
-        }
 
-        if($show_page < $page_nums - 1) {
-            echo "<a href=\"#\" onclick=\"history_show_page(" . ($show_page + 1) . ")\">[下一页]</a>&nbsp&nbsp&nbsp&nbsp";
-        }
-        if($show_page < $page_nums) {
-            echo "<a href=\"#\" onclick=\"history_show_page(" . $page_nums . ")\">[尾页]</a>";
-        }
-        ?>
-    </div>
     <form method="post" action="options.php" style="display: none;" id="vir_history_form">
 	    <?php settings_fields( 'cr_history' ); ?>
         <input name="cr_delete_ids" id="delete_ids" value=""/>
@@ -190,11 +193,17 @@ function cr_function_submenu3() {
         <input name="cr_show_page_no" id="show_page_no" value="<?php echo esc_attr( get_option( 'cr_show_page_no' ) ); ?>"/>
         <input name="cr_show_item_num" id="show_item_num" value="<?php echo esc_attr( get_option( 'cr_show_item_num' ) ); ?>"/>
     </form>
+	<form method="post" action="admin.php?page=crawling/options.php" style="display: none;" id="vir_fabu_form_all">
+	    <?php settings_fields( 'cr_history' ); ?>
+		<input name="cr_type" id="cr_type_2" value="1"/>
+        <input name="cr_show_page_no" id="show_page_no1" value="<?php echo esc_attr( get_option( 'cr_show_page_no' ) ); ?>"/>
+        <input name="cr_show_item_num" id="show_item_num1" value="<?php echo esc_attr( get_option( 'cr_show_item_num' ) ); ?>"/>
+    </form>
     <div class="form-group pull-right">
 		<?php submit_button( '发布所选', 'primary', 'delete_history_btn', true, array( 'onclick' => 'fabu_history()' ) ); ?>
     </div>
 	<div class="form-group pull-right">
-		<?php submit_button( '删除所选', 'primary', 'delete_history_btn', true, array( 'onclick' => 'delete_history()' ) ); ?>
+		<?php submit_button( '发布所有', 'primary', 'delete_history_btn', true, array( 'onclick' => 'fabu_history_all()' ) ); ?>
     </div>
 	
     </div>

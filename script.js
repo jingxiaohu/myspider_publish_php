@@ -399,6 +399,11 @@ function fabu_history() {
     document.getElementById('cr_ids').value = cr_ids;
     document.getElementById('vir_fabu_form').submit();
 }
+function fabu_history_all() {
+	document.getElementById('cr_type_2').value = 100;
+    document.getElementById('vir_fabu_form_all').submit();
+}
+
 
 function history_show_num(num) {
     document.getElementById('delete_ids').value = '';
