@@ -22,11 +22,16 @@ endif;
      echo '$sql_str11='.$sql_str11;      
      $results = $wpdb->get_results( $sql_str11 );
 	 foreach ($results as $oob){
+		    $content = auto_save_image( 1, $oob->content );
+			//echo '$content='.$content[ 'content' ];
+			if(empty( $content ) ){
+				exit;
+			}
 			$my_post = array(
 
 				'post_title' => $oob->title,
 
-				'post_content' => $oob->content,
+				'post_content' => $content[ 'content' ],
 
 				'post_status' => 'publish',
 
@@ -34,6 +39,7 @@ endif;
 
 				'post_category' => array($oob->category_id) //分类ID 可以是一个数组
 			);
+			
 		//入库
 		$result = 	wp_insert_post( $my_post );
 		//echo '$result='.$result;
@@ -46,7 +52,7 @@ endif;
 	 
 
 	 //$result = wp_insert_post( $post, $wp_error );
-	 // 创建一个文章对象
+	 // 创建一个文章对象 http://www.cnblogs.com/xbdeng/p/5545180.html
  }else if($cr_type == 100){
 	 //发布所有
 	 $sql_str11 = 'select * from wp_post_jxh  where post_id=0 and url_status < 2';

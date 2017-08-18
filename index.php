@@ -9,11 +9,12 @@ Author URI: http://crawling.cn/
 License: GPL2
 */
 
-//require_once( 'task.php' );
-//require_once( 'log.php' );
+require_once( 'task.php' );
+require_once( 'log.php' );
 require_once( 'pages.php' );
 require_once( 'db.php' );
 require_once( 'exec.php' );
+require_once( 'image.php' );
 //
 function cr_schedule_time() {
 	return array(

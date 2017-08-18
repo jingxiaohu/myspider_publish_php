@@ -24,8 +24,8 @@ function auto_save_image( $mode, $content ) {
 	//上传目录
 	$date_str        = '/' . date( 'Y', time() ) . '/' . date( 'm', time() );
 	$upload_path     = WP_CONTENT_DIR . '/uploads' . $date_str;
-	$upload_url_path = home_url() . '/wp-content/uploads' . $date_str;
-
+	//$upload_url_path = home_url() . '/wp-content/uploads' . $date_str;
+	$upload_url_path = '/wp-content/uploads' . $date_str;	
 	mkdirs( $upload_path );
 
 	$imgs = array();
@@ -61,7 +61,8 @@ function auto_save_image( $mode, $content ) {
 			if ( in_array( $fileext, $savefiletype ) ) {
 				$url      = '';
 				list($t1, $t2) = explode(' ', microtime());
-				$filename = date("Y-m-d-H-i-s-") . $t2*1000;
+				//$filename = date("Y-m-d-H-i-s-") . $t2*1000;
+				$filename = date("YmdHis-") . $t2*1000;
 				if ( 1 == $mode ) {
 					$url  = $upload_url_path . '/' . $filename . '.' . $fileext;
 					$file = $upload_path . '/' . $filename . '.' . $fileext;
@@ -99,13 +100,14 @@ function auto_save_image( $mode, $content ) {
 						$url = L_QiNiu::qiniu_get_host() . '/' . $result[ 'key' ];
 					}
 				}
-
+				
 				$text = str_replace( $value, $url, $text ); //替换文章里面的图片地址
+				
 			}// End if().
 		}// End if().
 	}// End foreach().
-	$return_value[ 'content' ] = AddSlashes( $text );
-
+	//$return_value[ 'content' ] = AddSlashes( $text );
+	$return_value[ 'content' ] = $text;
 	return $return_value;
 }
 
