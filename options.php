@@ -59,11 +59,16 @@ endif;
      echo '$sql_str11='.$sql_str11;      
      $results = $wpdb->get_results( $sql_str11 );
 	 foreach ($results as $oob){
+			$content = auto_save_image( 1, $oob->content );
+			//echo '$content='.$content[ 'content' ];
+			if(empty( $content ) ){
+				exit;
+			}
 			$my_post = array(
 
 				'post_title' => $oob->title,
 
-				'post_content' => $oob->content,
+				'post_content' => $content[ 'content' ],
 
 				'post_status' => 'publish',
 
